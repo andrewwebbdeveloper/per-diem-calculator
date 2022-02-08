@@ -75,9 +75,6 @@ function getDatesBetweenRange(startDate, endDate, city) {
     return dates;
 }
 
-
-
-
 /* 
 Format for calculation (parsing input)
 [[startDate, city],[betweenDates, city], [endDate, city], [startDate, city],[betweenDates, city], [endDate, city]...]
