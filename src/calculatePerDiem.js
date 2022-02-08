@@ -36,7 +36,7 @@ Set (input)
 
 /* 
 Format for calculation (parsing input)
-[[sDate, city],[betweenDates, city], [eDate, city], [sDate, city],[betweenDates, city], [eDate, city]...]
+[[startDate, city],[betweenDates, city], [endDate, city], [startDate, city],[betweenDates, city], [endDate, city]...]
 note: 
 - each date should only occur once
 - if there is a gap between any dates, use to determine travel vs. full.
@@ -44,9 +44,10 @@ note:
 
 /*
 Calculate from function
-- IF first Date in array && only one entry THEN full day @ city rate ( this would be the entire per diem)
-- ELSE IF first Date in array THEN travel day @ city rate
-- IF last Date in array && last Date !== first date in array THEN travel day @ city rate
+- IF only one entry THEN full day @ city rate ( this would be the entire per diem )
+-----
+- IF first Date in array THEN travel day @ city rate
+- IF last Date in array THEN travel day @ city rate
 - IF there's a gap between date[i] and date[i + 1] || date[i] and date[i - 1]  THEN travel day @ city rate
 - OTHERWISE it's a full day @ city rate1
 */
