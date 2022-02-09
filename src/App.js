@@ -1,7 +1,10 @@
 import { useState, useEffect } from 'react';
 import './App.css';
-import { calculatePerDiem } from './calculatePerDiem';
+
 import Project from './Project';
+import SetButton from './SetButton';
+
+import { calculatePerDiem } from './calculatePerDiem';
 import { set1, set2, set3, set4 } from './sets';
 
 const sets = [
@@ -10,11 +13,6 @@ const sets = [
   { id: 3, set: set3 },
   { id: 4, set: set4 },
 ]
-
-function SetButton({ id, text, setSet }) {
-  return (<button className='set-button' onClick={(e) => setSet(id)}>{text}</button>)
-}
-
 
 function App() {
   const [currentSet, setCurrentSet] = useState([])
@@ -37,7 +35,9 @@ function App() {
           <h1 className='set-title'>Per Diem</h1>
           <div className='price-container'><h2 className='price'>{`$${price}`}</h2></div>
         </div>
-        {currentSet && currentSet.map(({ title, city, start, end }, index) => <Project title={title} city={city} start={start} end={end} index={index} />)}
+        {currentSet.length
+          ? currentSet.map(({ title, city, start, end }, index) => <Project title={title} city={city} start={start} end={end} index={index} />)
+          : <h1 className='instruct set-title'>{`Please Select Set ----->`}</h1>}
       </main>
       <aside className='sidebar'>
         <h2>Sets</h2>

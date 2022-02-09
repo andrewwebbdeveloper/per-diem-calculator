@@ -39,7 +39,7 @@ main {
 
 .title-bar {
   display: flex;
-  padding: 1rem;
+  justify-content: space-between;
 }
 
 .price-container {
@@ -102,6 +102,11 @@ main {
 }
 .set-button:active {
   box-shadow: 0px 0px 0px 0px var(--color-light);
+}
+
+.instruct {
+  margin: 5rem 0;
+  text-align: center;
 }
 
 .project {
