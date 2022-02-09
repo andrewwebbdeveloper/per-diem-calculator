@@ -1,0 +1,1 @@
+export default function log(message, obj) { return console.log(`%c${message}`, `background-color: #90aacb; color: black; padding: 3px; `, obj) };

@@ -1,3 +1,4 @@
+import log from "./sytledLogger"
 
 export function calculatePerDiem(set) {
     return calculateFormattedSet(formatSetForCalculation(set))
@@ -89,6 +90,8 @@ function checkIsYesterdayPrevious(currentDate, lastDate) {
 
 function calculateFormattedSet(formatedSetOfProjects) {
 
+    log(`project dates:`, formatedSetOfProjects.map(x => x[0]))
+
     // IF there's only one, then one full day is the total per diem.
     if (formatedSetOfProjects.length === 1) {
         const [_, city] = formatedSetOfProjects[0]
@@ -111,6 +114,8 @@ function calculateFormattedSet(formatedSetOfProjects) {
 
         return acc;
     }, [])
+
+    log(`total amounts:`, totalAmounts)
 
     // Sum totalAmounts
     return totalAmounts.reduce((acc, dollarAmount) => acc += dollarAmount, 0)
