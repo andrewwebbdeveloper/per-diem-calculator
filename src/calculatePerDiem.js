@@ -1,6 +1,10 @@
+
+export function calculatePerDiem(set) {
+    return calculateFormattedSet(formatSetForCalculation(set))
+}
+
+
 // Data structures
-
-
 const cities = [
     {
         title: 'low',
@@ -14,23 +18,6 @@ const cities = [
     },
 ]
 
-/*
-Set (input)
-[
-    {
-        title: 'Project 1',
-        city: 'low',
-        start: '02/08/2022',
-        end: '02/10/2022'
-    },
-    {
-        title: 'Project 2',
-        city: 'high',
-        start: '02/10/2022',
-        end: '02/13/2022'
-    },
-]
-*/
 
 const set1 = [
     { title: 'Project 1', city: 'low', start: ' 9/1/2015', end: '9/3/2015' },
@@ -56,6 +43,7 @@ const set4 = [
 ]
 
 // This set is a case where the first and last days should be full instead of travel because they're adjacent to gaps.
+// However, that case goes against the first rule: "First day and last day of a project, or sequence of projects, is a travel day."
 const set5 = [
     { title: 'Project 1', city: 'low', start: '12/31/2015', end: '12/31/2015' },
     { title: 'Project 2', city: 'high', start: '1/2/2016', end: '1/6/2016' },
@@ -92,18 +80,14 @@ note:
 
 function formatSetForCalculation(setOfProjects) {
     return setOfProjects
-        .reduce((acc, project) => {
-
-            // First just count every date from start to end
+        .reduce((acc, project) => { // First just count every date from start to end           
             return [...acc,
             [project.start, project.city],
             ...getDatesBetweenRange(project.start, project.end, project.city),
             [project.end, project.city]]
 
         }, [])
-        .reduce((acc, day) => {
-
-            // Then, filter for unique dates.
+        .reduce((acc, day) => { // Then, filter for unique dates.
             if (acc.some(x => x[0] === day[0])) return acc;
             return [...acc, day]
 
@@ -126,15 +110,15 @@ function getPrice(city, rate) {
 
 function checkIsTomorrowNext(currentDate, nextDate) {
     const tomorrowsYesterday = formatDateString(new Date(nextDate).setDate(new Date(nextDate).getDate() - 1));
-    return currentDate !== tomorrowsYesterday; // ?
+    return currentDate !== tomorrowsYesterday;
 }
 
 function checkIsYesterdayPrevious(currentDate, lastDate) {
     const yesterdaysTomorrow = formatDateString(new Date(lastDate).setDate(new Date(lastDate).getDate() + 1));
-    return currentDate !== yesterdaysTomorrow; // ?
+    return currentDate !== yesterdaysTomorrow;
 }
 
-export function calculatePerDiem(formatedSetOfProjects) {
+function calculateFormattedSet(formatedSetOfProjects) {
 
     // IF there's only one, then one full day is the total per diem.
     if (formatedSetOfProjects.length === 1) {
@@ -148,12 +132,15 @@ export function calculatePerDiem(formatedSetOfProjects) {
         const isGapAhead = !isLastDate && checkIsTomorrowNext(date, projects[index + 1][0])
         const isGapBehind = !isFirstDate && checkIsYesterdayPrevious(date, projects[index - 1][0])
 
-        if (isLastDate && isGapBehind) acc.push(getPrice(city, 'full'))
-        else if (isFirstDate && isGapAhead) acc.push(getPrice(city, 'full'))
-        else if (isFirstDate || isLastDate || isGapAhead || isGapBehind) acc.push(getPrice(city, 'travel'))
+
+        // The scenario this corrects go against the first rule: "First day and last day of a project, or sequence of projects, is a travel day."
+        // if (isLastDate && isGapBehind) acc.push(getPrice(city, 'full')) 
+        // if (isFirstDate && isGapAhead) acc.push(getPrice(city, 'full'))
+
+        if (isFirstDate || isLastDate || isGapAhead || isGapBehind) acc.push(getPrice(city, 'travel'))
         else acc.push(getPrice(city, 'full'))
 
-        return acc; //?
+        return acc;
     }, [])
 
     // Sum totalAmounts
