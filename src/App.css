@@ -50,7 +50,9 @@ main {
   width: 7rem;
   height: 7rem;
   border-radius: 50%;
-  box-shadow: 6px 7px 0px 0px var(--color-dark);
+
+  animation: solarRotation 15s ease-in-out;
+  animation-iteration-count: infinite;
 }
 
 .price {
@@ -141,5 +143,23 @@ main {
   .project-info {
     flex-direction: column;
     align-items: left;
+  }
+}
+
+@keyframes solarRotation {
+  0% {
+    box-shadow: 6px 7px 0px 0px var(--color-dark);
+  }
+  20% {
+    box-shadow: -7px 7px 0px 0px var(--color-dark);
+  }
+  50% {
+    box-shadow: -7px -8px 0px 0px var(--color-dark);
+  }
+  80% {
+    box-shadow: 8px -8px 0px 0px var(--color-dark);
+  }
+  100% {
+    box-shadow: 6px 7px 0px 0px var(--color-dark);
   }
 }
