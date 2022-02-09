@@ -20,6 +20,8 @@ body {
 .App {
   display: grid;
   grid-template-columns: 8fr minmax(min-content, 2fr);
+  min-height: 100vh;
+  max-height: fit-content;
 }
 
 main {
@@ -39,9 +41,9 @@ main {
 .set-title {
   font-family: "Pacifico", cursive;
   font-size: 4rem;
-  margin: 0 1rem 0 0;
   align-self: center;
   color: var(--color-blue);
+  line-height: 50px;
 }
 
 @media screen and (max-width: 625px) {
@@ -59,6 +61,7 @@ main {
   width: 7rem;
   height: 7rem;
   border-radius: 50%;
+  align-self: center;
 
   animation: solarRotation 15s ease-in-out;
   animation-iteration-count: infinite;
@@ -69,13 +72,37 @@ main {
   color: var(--color-blue);
 }
 
+@media screen and (max-width: 625px) {
+  .price-container {
+    width: 5rem;
+    height: 5rem;
+  }
+  .price {
+    font-size: 1.5rem;
+  }
+}
+
+@media screen and (max-width: 425px) {
+  .set-title {
+    font-size: 1.5rem;
+    line-height: 24px;
+  }
+  .price-container {
+    width: 4rem;
+    height: 4rem;
+  }
+  .price {
+    font-size: 1rem;
+  }
+}
+
 /* ************************************************* */
 
 /* Sidebar */
 /* ************************************************* */
 
 .sidebar {
-  height: 100vh;
+  height: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
