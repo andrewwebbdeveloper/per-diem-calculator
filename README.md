@@ -4,6 +4,12 @@
 
 ---
 
+### To see the example on the web:
+
+Go to https://per-diem-calculator.netlify.app/
+
+---
+
 ### How to use
 
 - After app is running, click one of the set buttons on the right
