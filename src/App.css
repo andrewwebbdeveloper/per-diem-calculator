@@ -1,11 +1,15 @@
 @import url("https://fonts.googleapis.com/css2?family=Pacifico&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@100;400;700&display=swap");
+
 :root {
   --color-light: #fef1e6;
   --color-med: #f9d5a7;
   --color-dark: #ffb085;
   --color-blue: #90aacb;
 }
+
+/* Layout */
+/* ************************************************* */
 
 body {
   background-color: var(--color-med);
@@ -22,6 +26,16 @@ main {
   padding: 1rem;
 }
 
+/* ************************************************* */
+
+/* Top / Title of Page */
+/* ************************************************* */
+
+.title-bar {
+  display: flex;
+  justify-content: space-between;
+}
+
 .set-title {
   font-family: "Pacifico", cursive;
   font-size: 4rem;
@@ -35,11 +49,6 @@ main {
     font-size: 3rem;
     margin: 0 0.5rem 0 0;
   }
-}
-
-.title-bar {
-  display: flex;
-  justify-content: space-between;
 }
 
 .price-container {
@@ -59,6 +68,11 @@ main {
   font-size: 2rem;
   color: var(--color-blue);
 }
+
+/* ************************************************* */
+
+/* Sidebar */
+/* ************************************************* */
 
 .sidebar {
   height: 100vh;
@@ -106,6 +120,11 @@ main {
   box-shadow: 0px 0px 0px 0px var(--color-light);
 }
 
+/* ************************************************* */
+
+/* Main / Project area of Page */
+/* ************************************************* */
+
 .instruct {
   margin: 5rem 0;
   text-align: center;
@@ -146,6 +165,11 @@ main {
   }
 }
 
+/* ************************************************* */
+
+/* Animations */
+/* ************************************************* */
+
 @keyframes solarRotation {
   0% {
     box-shadow: 6px 7px 0px 0px var(--color-dark);
@@ -163,3 +187,5 @@ main {
     box-shadow: 6px 7px 0px 0px var(--color-dark);
   }
 }
+
+/* ************************************************* */
