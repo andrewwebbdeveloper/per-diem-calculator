@@ -94,7 +94,7 @@ function calculateFormattedSet(formatedSetOfProjects) {
 
     // IF there's only one, then one full day is the total per diem.
     if (formatedSetOfProjects.length === 1) {
-        const [_, city] = formatedSetOfProjects[0]
+        const [, city] = formatedSetOfProjects[0]
         return getPrice(city, 'full')
     }
 
