@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import './App.css';
 import { calculatePerDiem } from './calculatePerDiem';
+import Project from './Project';
 import { set1, set2, set3, set4 } from './sets';
 
 const sets = [
@@ -36,18 +37,7 @@ function App() {
           <h1 className='set-title'>Per Diem</h1>
           <div className='price-container'><h2 className='price'>{`$${price}`}</h2></div>
         </div>
-        {currentSet && currentSet.map(({ title, city, start, end }, index) => {
-          return (
-            <div key={index} className='project'>
-              <div className='project-info'>
-                <h5 className='project-title'>{title}</h5>
-                <p><strong>City:</strong> {city}</p>
-                <p><strong>Start:</strong> {start}</p>
-                <p><strong>End:</strong> {end}</p>
-              </div>
-            </div>
-          )
-        })}
+        {currentSet && currentSet.map(({ title, city, start, end }, index) => <Project title={title} city={city} start={start} end={end} index={index} />)}
       </main>
       <aside className='sidebar'>
         <h2>Sets</h2>
