@@ -45,7 +45,7 @@ const set2 = [
 const set3 = [
     { title: 'Project 1', city: 'low', start: '9/1/2015', end: '9/3/2015' },
     { title: 'Project 2', city: 'high', start: '9/5/2015', end: '9/7/2015' },
-    { title: 'Project 3', city: 'low', start: '9/8/2015', end: '9/8/2015' },
+    { title: 'Project 3', city: 'high', start: '9/8/2015', end: '9/8/2015' },
 ]
 
 const set4 = [
@@ -53,6 +53,13 @@ const set4 = [
     { title: 'Project 2', city: 'low', start: '9/1/2015', end: '9/1/2015' },
     { title: 'Project 3', city: 'high', start: '9/2/2015', end: '9/2/2015' },
     { title: 'Project 4', city: 'high', start: '9/2/2015', end: '9/3/2015' },
+]
+
+// This set is a case where the first and last days should be full instead of travel because they're adjacent to gaps.
+const set5 = [
+    { title: 'Project 1', city: 'low', start: '12/31/2015', end: '12/31/2015' },
+    { title: 'Project 2', city: 'high', start: '1/2/2016', end: '1/6/2016' },
+    { title: 'Project 3', city: 'high', start: '1/8/2016', end: '1/8/2016' },
 ]
 
 function formatDateString(dateString) {
@@ -112,3 +119,43 @@ Calculate from function
 - IF there's a gap between date[i] and date[i + 1] || date[i] and date[i - 1]  THEN travel day @ city rate
 - OTHERWISE it's a full day @ city rate1
 */
+
+function getPrice(city, rate) {
+    return cities.find(x => x.title === city)[rate]
+}
+
+function checkIsTomorrowNext(currentDate, nextDate) {
+    const tomorrowsYesterday = formatDateString(new Date(nextDate).setDate(new Date(nextDate).getDate() - 1));
+    return currentDate !== tomorrowsYesterday; // ?
+}
+
+function checkIsYesterdayPrevious(currentDate, lastDate) {
+    const yesterdaysTomorrow = formatDateString(new Date(lastDate).setDate(new Date(lastDate).getDate() + 1));
+    return currentDate !== yesterdaysTomorrow; // ?
+}
+
+export function calculatePerDiem(formatedSetOfProjects) {
+
+    // IF there's only one, then one full day is the total per diem.
+    if (formatedSetOfProjects.length === 1) {
+        const [_, city] = formatedSetOfProjects[0]
+        return getPrice(city, 'full')
+    }
+
+    const totalAmounts = formatedSetOfProjects.reduce((acc, [date, city], index, projects) => {
+        const isFirstDate = index === 0;
+        const isLastDate = index === projects.length - 1
+        const isGapAhead = !isLastDate && checkIsTomorrowNext(date, projects[index + 1][0])
+        const isGapBehind = !isFirstDate && checkIsYesterdayPrevious(date, projects[index - 1][0])
+
+        if (isLastDate && isGapBehind) acc.push(getPrice(city, 'full'))
+        else if (isFirstDate && isGapAhead) acc.push(getPrice(city, 'full'))
+        else if (isFirstDate || isLastDate || isGapAhead || isGapBehind) acc.push(getPrice(city, 'travel'))
+        else acc.push(getPrice(city, 'full'))
+
+        return acc; //?
+    }, [])
+
+    // Sum totalAmounts
+    return totalAmounts.reduce((acc, dollarAmount) => acc += dollarAmount, 0)
+}
