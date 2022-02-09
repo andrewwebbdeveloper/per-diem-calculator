@@ -1,5 +1,5 @@
 const set1 = [
-    { title: 'Project 1', city: 'low', start: ' 9/1/2015', end: '9/3/2015' },
+    { title: 'Project 1', city: 'low', start: '9/1/2015', end: '9/3/2015' },
 ]
 
 const set2 = [
